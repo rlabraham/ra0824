@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: ra0824
+  mvc:
+    format:
+      date-time:  MM/dd/yy
