@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @AllArgsConstructor @Getter
-public enum Rentals {
+public enum Rental {
     LADDER(1.99, true, true, false),
     CHAINSAW(1.49, true, false, true),
     JACKHAMMER(2.99, true, false, false);

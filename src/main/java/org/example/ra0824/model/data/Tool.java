@@ -4,19 +4,19 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @AllArgsConstructor @Getter
-public enum Tools {
+public enum Tool {
     CHAINSAW_STIHL ("CHNS", "Chainsaw", "Stihl"),
     LADDER_WERNER ("LADW", "Ladder", "Werner"),
     JACKHAMMER_DEWALT ("JAKD", "Jackhammer", "DeWalt"),
-    JACKHAMMER_RIGID ("JACKR", "Jackhammer", "Rigid");
+    JACKHAMMER_RIGID ("JAKR", "Jackhammer", "Rigid");
 
     private final String code;
     private final String type;
     private final String brand;
 
-    public static Tools fromCode(String code) {
-        for (Tools tool : Tools.values()) {
-            if (tool.getCode().equals(code)) {
+    public static Tool fromCode(String code) {
+        for (Tool tool : Tool.values()) {
+            if (tool.getCode().equalsIgnoreCase(code)) {
                 return tool;
             }
         }
