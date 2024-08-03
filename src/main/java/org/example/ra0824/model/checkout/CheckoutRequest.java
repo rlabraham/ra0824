@@ -2,8 +2,6 @@ package org.example.ra0824.model.checkout;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -33,7 +31,6 @@ public class CheckoutRequest {
 
     @NotNull(message = "Checkout Date must not be blank")
     @JsonProperty("Checkout date")
-    @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonFormat(pattern = "M/d/yy")
     private LocalDate checkoutDate;
 }
