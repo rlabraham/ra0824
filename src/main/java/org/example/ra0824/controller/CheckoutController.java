@@ -7,6 +7,7 @@ import org.example.ra0824.controller.service.CheckoutService;
 import org.example.ra0824.model.checkout.CheckoutRequest;
 import org.example.ra0824.model.checkout.RentalAgreement;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ import java.util.Map;
 public class CheckoutController {
     private final CheckoutService checkoutService;
 
-    @PostMapping
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public Mono<RentalAgreement> createRentalAgreement(@Valid @RequestBody CheckoutRequest checkoutRequest) {
         log.info("Checkout request: {}", checkoutRequest);
         return checkoutService.createRentalAgreement(checkoutRequest);
@@ -30,7 +31,7 @@ public class CheckoutController {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    protected Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
+    private Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
         ex.getBindingResult().getAllErrors().forEach((error) -> {
             String fieldName = ((FieldError) error).getField();

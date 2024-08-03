@@ -24,11 +24,11 @@ public class RentalAgreement {
     private Long rentalDays;
 
     @JsonProperty("Checkout date")
-    @JsonFormat(pattern = "M/d/yy")
+    @JsonFormat(pattern = "MM/dd/yy")
     private LocalDate checkoutDate;
 
     @JsonProperty("Due date")
-    @JsonFormat(pattern = "M/d/yy")
+    @JsonFormat(pattern = "MM/dd/yy")
     private LocalDate dueDate;
 
     @JsonProperty("Daily rental charge")

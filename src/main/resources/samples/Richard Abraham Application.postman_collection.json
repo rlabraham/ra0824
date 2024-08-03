@@ -1,0 +1,29 @@
+{
+	"info": {
+		"_postman_id": "71ecb060-c5a6-4c78-a736-c8403353f9dd",
+		"name": "Richard Abraham Application",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "36691447"
+	},
+	"item": [
+		{
+			"name": "checkout",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/checkout",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"checkout"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

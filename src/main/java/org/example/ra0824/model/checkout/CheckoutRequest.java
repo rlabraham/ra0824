@@ -9,6 +9,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.ra0824.ApplicationConstants;
 
 import java.time.LocalDate;
 
@@ -16,20 +17,20 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CheckoutRequest {
-    @NotBlank(message = "Tool Code must not be blank")
+    @NotBlank(message = ApplicationConstants.TOOL_CODE_BLANK_VALIDATION_MSG)
     @JsonProperty("Tool code")
     private String toolCode;
 
-    @Min(value = 1, message = "Rental Day Count must be 1 or greater")
+    @Min(value = 1, message = ApplicationConstants.RENTAL_DAY_MIN_VALIDATION_MSG)
     @JsonProperty("Rental day count")
     private long rentalDayCount;
 
-    @Min(value = 0, message = "Discount Percent must be 0 or greater")
-    @Max(value = 100, message = "Discount Percent must be 100 or less")
+    @Min(value = 0, message = ApplicationConstants.DISCOUNT_MIN_VALIDATION_MSG)
+    @Max(value = 100, message = ApplicationConstants.DISCOUNT_MAX_VALIDATION_MSG)
     @JsonProperty("Discount percent")
     private int discountPercent;
 
-    @NotNull(message = "Checkout Date must not be blank")
+    @NotNull(message = ApplicationConstants.CHECKOUT_DATE_BLANK_VALIDATION_MSG)
     @JsonProperty("Checkout date")
     @JsonFormat(pattern = "M/d/yy")
     private LocalDate checkoutDate;
