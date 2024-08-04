@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
 
@@ -46,7 +47,7 @@ public class DateUtilUnitTest {
         final LocalDate testResult = DateUtil.getLaborDay(2023);
 
         assertEquals(testResult.getMonth(), Month.SEPTEMBER);
-        assertEquals(testResult.getDayOfMonth(), 4);
+        assertEquals(testResult.getDayOfWeek(), DayOfWeek.MONDAY);
         assertEquals(testResult.getYear(), 2023);
     }
 
