@@ -1,13 +1,13 @@
 package org.example.ra0824.controller.mapper;
 
 import org.example.ra0824.controller.util.DateUtil;
+import org.example.ra0824.controller.util.StringUtil;
 import org.example.ra0824.model.checkout.CheckoutRequest;
 import org.example.ra0824.model.checkout.RentalAgreement;
 import org.example.ra0824.model.data.Rental;
 import org.example.ra0824.model.data.Tool;
 import org.springframework.stereotype.Component;
 
-import java.text.NumberFormat;
 import java.time.LocalDate;
 
 import static java.time.temporal.ChronoUnit.DAYS;
@@ -31,25 +31,15 @@ public class RentalAgreementMapper {
                 .rentalDays(checkoutRequest.getRentalDayCount())
                 .checkoutDate(checkoutRequest.getCheckoutDate())
                 .dueDate(dueDate)
-                .dailyRentalCharge(formatAmountAsUSCurrency(rental.getDailyCharge()))
+                .dailyRentalCharge(StringUtil.formatAmountUSCurrency(rental.getDailyCharge()))
                 .chargeDays(chargeDays)
-                .preDiscountCharge(formatAmountAsUSCurrency(preDiscountAmount))
-                .discountPercent(formatPercent(checkoutRequest.getDiscountPercent()))
-                .discountAmount(formatAmountAsUSCurrency(discountAmount))
-                .finalCharge(formatAmountAsUSCurrency(finalCharge))
+                .preDiscountCharge(StringUtil.formatAmountUSCurrency(preDiscountAmount))
+                .discountPercent(StringUtil.formatPercent(checkoutRequest.getDiscountPercent()))
+                .discountAmount(StringUtil.formatAmountUSCurrency(discountAmount))
+                .finalCharge(StringUtil.formatAmountUSCurrency(finalCharge))
                 .build();
     }
 
-    private String formatAmountAsUSCurrency(final double amount) {
-        final NumberFormat numberFormatter = NumberFormat.getCurrencyInstance();
-        return numberFormatter.format(amount);
-    }
-
-    private String formatPercent(final int percent) {
-        double decimalPercent = (percent * 1.0) / 100;
-        final NumberFormat numberFormatter = NumberFormat.getPercentInstance();
-        return numberFormatter.format(decimalPercent);
-    }
 
     private LocalDate getDueDate(final LocalDate startDate, final long days) {
         return startDate.plusDays(days);
@@ -63,23 +53,26 @@ public class RentalAgreementMapper {
     }
 
     private long calculateNumberOfNoChargeDays(final LocalDate checkoutDate, final LocalDate dueDate, final Rental rental) {
-        LocalDate pointerDate = checkoutDate.plusDays(1);
         long noChargeDays = 0;
 
-        while (DateUtil.onOrBefore(pointerDate, dueDate)) {
-            if (!rental.isWeekdayCharge() && DateUtil.WEEK_DAYS.contains(pointerDate.getDayOfWeek())) {
-                noChargeDays++;
+        if (rental != null) {
+            LocalDate pointerDate = checkoutDate.plusDays(1);
+
+            while (DateUtil.onOrBefore(pointerDate, dueDate)) {
+                if (!rental.isWeekdayCharge() && DateUtil.WEEK_DAYS.contains(pointerDate.getDayOfWeek())) {
+                    noChargeDays++;
+                }
+
+                if (!rental.isWeekendCharge() && DateUtil.WEEKEND_DAYS.contains(pointerDate.getDayOfWeek())) {
+                    noChargeDays++;
+                }
+
+                pointerDate = pointerDate.plusDays(1);
             }
 
-            if (!rental.isWeekendCharge() && DateUtil.WEEKEND_DAYS.contains(pointerDate.getDayOfWeek())) {
-                noChargeDays++;
+            if (!rental.isHolidayCharge()) {
+                noChargeDays = noChargeDays + calculateNumberOfHolidays(checkoutDate, dueDate);
             }
-
-            pointerDate = pointerDate.plusDays(1);
-        }
-
-        if (!rental.isHolidayCharge()) {
-            noChargeDays = noChargeDays + calculateNumberOfHolidays(checkoutDate, dueDate);
         }
 
         return noChargeDays;

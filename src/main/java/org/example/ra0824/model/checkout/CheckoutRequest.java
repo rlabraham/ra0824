@@ -7,15 +7,14 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.example.ra0824.ApplicationConstants;
 
 import java.time.LocalDate;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Data @AllArgsConstructor @NoArgsConstructor @Builder
 public class CheckoutRequest {
     @NotBlank(message = ApplicationConstants.TOOL_CODE_BLANK_VALIDATION_MSG)
     @JsonProperty("Tool code")

@@ -1,6 +1,6 @@
 {
   "Tool code": "CHNS",
-  "Rental day count": "5",
-  "Discount percent": "25",
+  "Rental day count": 5,
+  "Discount percent": 25,
   "Checkout date": "7/2/15"
 }

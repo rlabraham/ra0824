@@ -61,11 +61,11 @@ public class CheckoutControllerIntegrationTest {
     }
 
     private static String happyPathTest() {
-        return "{\"Tool code\":\"JAKR\",\"Rental day count\":5,\"Discount percent\":10,\n\"Checkout date\":\"09/03/15\"}";
+        return "{\"Tool code\":\"JAKR\",\"Rental day count\":5,\"Discount percent\":10,\n\"Checkout date\":\"9/3/15\"}";
     }
 
     private static String requiredTest1() {
-        return "{\"Tool code\":\"JAKR\",\"Rental day count\":5,\"Discount percent\":101,\n\"Checkout date\":\"09/03/15\"}";
+        return "{\"Tool code\":\"JAKR\",\"Rental day count\":5,\"Discount percent\":101,\n\"Checkout date\":\"9/3/15\"}";
     }
 
     private static String invalidRequest() {
